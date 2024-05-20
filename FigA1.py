@@ -1,30 +1,48 @@
+"""
+
+Generates Figure A1
+
+"""
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-def f(x):
+def f(x,t):
+	"""
+	f_t(x) defined in Appendix A.
+
+
+	"""
 	return np.sin(x*(t+1)*np.pi)**2
 
-xs = np.linspace(0,1,10000)
+
+# x values for plots
+xs = np.linspace(0,1,1000)
 
 fig, (a,b,c,d) = plt.subplots(1,4,figsize=(9,2.))
 
+# Panel A
 t = 0
-fs = f(xs)
+fs = f(xs,t)
 a.plot(xs,fs,'k',linewidth=1)
 
+# Panel B
 t = 5
-fs = f(xs)
+fs = f(xs,t)
 b.plot(xs,fs,'k',linewidth=1)
 
-
+# Panel C
 t = 20
-fs = f(xs)
+fs = f(xs,t)
 c.plot(xs,fs,'k',linewidth=1)
 
+# Panel D
+# plots the horizontal line y=0.5
 d.plot([xs[0],xs[-1]],[.5,.5],'k',linewidth=1.5)
 
-
+# Plot adjustments
 for ax in [a,b,c,d]:
 	ax.set_xlim(0,1)
 	ax.set_ylim(0,1.1)
