@@ -1,26 +1,18 @@
 """
-
-Generates Figure A1
-
+Generates Figure A1 (in Appendix A)
 """
-
 
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 def f(x,t):
-	"""
-	f_t(x) defined in Appendix A.
-
-
-	"""
+	"""f_t(x) defined in Appendix A."""
 	return np.sin(x*(t+1)*np.pi)**2
-
 
 # x values for plots
 xs = np.linspace(0,1,1000)
 
+#Create 4 subplots for figure panels A, B, C, and D
 fig, (a,b,c,d) = plt.subplots(1,4,figsize=(9,2.))
 
 # Panel A
@@ -50,8 +42,11 @@ for ax in [a,b,c,d]:
 	ax.set_xticklabels([0,'','','',1])
 	ax.set_yticks([0,0.25,0.5,.75,1])
 	ax.set_yticklabels([0,'','','',1])
+
+	# Remove right and top borders of the plot
 	ax.spines[['right', 'top']].set_visible(False)
 
+# Spacing between subplots
 plt.subplots_adjust(wspace=.4,bottom=0.2)
 
 plt.show()

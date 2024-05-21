@@ -1,3 +1,11 @@
+"""
+Note to self: do this after updating code for billiard simulation.
+
+
+"""
+
+
+
 import numpy as np
 from numpy import exp
 import matplotlib.pyplot as plt
@@ -5,8 +13,9 @@ from scipy.optimize import minimize
 from scipy.special import xlogy
 import matplotlib.patches as patches
 
-
-file = np.load('../Particle in an irrational triangle/sim1.npz')
+# Load saved data.
+# New simulation data can be generated using billiard_simulation.py
+file = np.load('simulation_data.npz')
 x_list0 = file['x_list0']
 y_list0 = file['y_list0']
 vx_list0 = file['vx_list0']
