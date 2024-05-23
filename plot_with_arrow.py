@@ -4,18 +4,19 @@ import matplotlib.patches as patches
 
 def plot_with_arrow(ax,x,y,color='k',linestyle='-',arrow_style='solid',
                     tail_style='o',length=0.05,angle=0.4):
-    """ Geneterates x vs y line plot (pyplot.plot) terminating in an arrow.
+    """ 
+    Geneterates x vs y line plot (pyplot.plot) terminating in an arrow.
         
-        Paramters:
-            ax: pyplot axes on which to plot
-            x: x coordinates
-            y: y coordinates
-            color: line color
-            linestyle: pyplot linestyle
-            arrow_style ('solid' or 'V'): solid arrow or V-shaped arrow
-            tail_style (None,'o','s',...): style of initial point
-            length: arrow length
-            angle: angle of arrow tip (adjusts width of arrow head)
+    Paramters:
+        ax: pyplot axes on which to plot
+        x: x coordinates
+        y: y coordinates
+        color: line color
+        linestyle: pyplot linestyle
+        arrow_style ('solid' or 'V'): solid arrow or V-shaped arrow
+        tail_style (None,'o','s',...): style of initial point
+        length: arrow length
+        angle: angle of arrow tip (adjusts width of arrow head)
     """
     
     # Plot line
@@ -40,7 +41,11 @@ def plot_with_arrow(ax,x,y,color='k',linestyle='-',arrow_style='solid',
         ax.plot([x[-1],x[-1]+side2[0]],[y[-1],y[-1]+side2[1]],color=color)
     
     elif arrow_style=='solid': # Solid arrow (plots triangular patch)
-        vertices = [(x[-1],y[-1]),(x[-1]+side1[0],y[-1]+side1[1]),(x[-1]+side2[0],y[-1]+side2[1])]
+        vertices = [
+                    (x[-1],y[-1]),
+                    (x[-1]+side1[0],y[-1]+side1[1]),
+                    (x[-1]+side2[0],y[-1]+side2[1])
+                    ]
         triangle = patches.Polygon(vertices, closed=True, color='black')
         ax.add_patch(triangle)
 

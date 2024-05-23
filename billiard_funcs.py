@@ -1,8 +1,13 @@
+"""
+Utilities used for computing billiard dynamics.
+"""
+
 import numpy as np
 from scipy.interpolate import interp1d
 
 class Triangle:
-    """ Specifies triangle shape and other properties
+    """
+    Specifies triangle shape and other properties
     Vertex coordinates are (L1r,0), (L1l,0), (0,L2)
        /|\    |
       / | \   L2
@@ -14,7 +19,6 @@ class Triangle:
 
     Computes right_side_vect, the normalized vector that points from 
     the top corner to the bottom right corner.
-
     """
     def __init__(self,L1l,L1r,L2):
         self.L1l = L1l
@@ -27,49 +31,51 @@ class Triangle:
 
 t_list = np.zeros(3) # Initializes array to be used in next_collision
 def next_collision(x,y,vx,vy,max_t,triangle,epsilon=1e-8):
-    """ Computes the state of particle immediate following the next 
-        collision with a wall, UNLESS no collision occurs within time 
-        max_t, in which case it returns that state of the particle 
-        after time max_t.
+    """
+    Computes the state of particle immediate following the next 
+    collision with a wall, UNLESS no collision occurs within time 
+    max_t, in which case it returns that state of the particle 
+    after time max_t.
 
-        Parameters:
-            x: initial x of particle
-            y: initial y of particle
-            vx: initial vx of particle
-            vy: initial vy of particle
-            max_t: Maximum time
-            triangle: Triangle object that defines the walls
+    Parameters:
+        x: initial x of particle
+        y: initial y of particle
+        vx: initial vx of particle
+        vy: initial vy of particle
+        max_t: Maximum time
+        triangle: Triangle object that defines the walls
 
-        Returns:
-            x: final x after collision
-            y: final y after collision
-            vx: final vx after collision
-            vy: final vy after collision
-            collision_time: time elapsed until collision OR max_t if no 
-                            collision occurs.
-            collision_occured: TRUE if collision occurs, False otherwise.
+    Returns:
+        x: final x after collision
+        y: final y after collision
+        vx: final vx after collision
+        vy: final vy after collision
+        collision_time: time elapsed until collision OR max_t if no 
+                        collision occurs.
+        collision_occured: TRUE if collision occurs, False otherwise.
     """
 
     def v_components(vx,vy,side_vect):
-        """ Computes velocity components parallel to and perpendicular 
-            to colliding wall
+        """
+        Computes velocity components parallel to and perpendicular 
+        to colliding wall
 
-            Parameters:
-                vx, vy: velocity components
-                side_vect: vector in direction of side. Typically,
-                    side_vect = triangle.left_side_vect or
-                    side_vect = triangle.right_side_vect 
+        Parameters:
+            vx, vy: velocity components
+            side_vect: vector in direction of side. Typically,
+                side_vect = triangle.left_side_vect or
+                side_vect = triangle.right_side_vect 
         """
         v_parallel = side_vect * (vx*side_vect[0] + vy*side_vect[1])
         v_perpendicular = [vx - v_parallel[0], vy - v_parallel[1]]
         return v_parallel,v_perpendicular
 
-    """ t_left, t_bottom, and t_right are the times at which the
-        particle will collide with the left, bottom, and right wall,
-        (assuming it does not hit another wall first!)
-        These times may be negative if the particle would collide
-        with the wall in the past. The smallest positive value 
-        indicates which collision will occur next."""
+    # t_left, t_bottom, and t_right are the times at which the
+    # particle will collide with the left, bottom, and right wall,
+    # (assuming it does not hit another wall first!)
+    # These times may be negative if the particle would collide
+    # with the wall in the past. The smallest positive value 
+    # indicates which collision will occur next.
     t_left = (
         (triangle.L2 - triangle.L2*x/triangle.L1l - y)
          / (vy + triangle.L2*vx/triangle.L1l)
@@ -88,7 +94,7 @@ def next_collision(x,y,vx,vy,max_t,triangle,epsilon=1e-8):
 
     if np.all(t_list>max_t):
         # No collision occurs before time max_t
-        #Return particle state at time max_t, collision_occurs=False
+        # Return particle state at time max_t, collision_occurs=False
         return x+vx*max_t, y+vy*max_t, vx, vy, max_t, False
 
     else:
@@ -121,25 +127,26 @@ def next_collision(x,y,vx,vy,max_t,triangle,epsilon=1e-8):
 
 
 def trajectory_collisions(x,y,vx,vy,t,triangle,max_collisions=10000):
-    """ Generates a trajectory where the position and time of each 
-        collision are recorded.
+    """ 
+    Generates a trajectory where the position and time of each 
+    collision are recorded.
 
-        Parameters:
-            x: initial x of particle
-            y: initial y of particle
-            vx: initial vx of particle
-            vy: initial vy of particle
-            t: trajectory time
-            triangle: Triangle object that defines the walls
+    Parameters:
+        x: initial x of particle
+        y: initial y of particle
+        vx: initial vx of particle
+        vy: initial vy of particle
+        t: trajectory time
+        triangle: Triangle object that defines the walls
 
-        Returns:
-            xs: x components of trajectory.
-            ys: y components of trajectory.
-                xs[0] = x, ys[0] = y (the initial conditions)
-                xs[-1],ys[-1] is the particle position after 
-                time t, which is NOT a time at which a collision 
-                occurs (in general).
-            ts: times of each collision and final point. ts[0] = 0.
+    Returns:
+        xs: x components of trajectory.
+        ys: y components of trajectory.
+            xs[0] = x, ys[0] = y (the initial conditions)
+            xs[-1],ys[-1] is the particle position after 
+            time t, which is NOT a time at which a collision 
+            occurs (in general).
+        ts: times of each collision and final point. ts[0] = 0.
     """
 
     xs, ys, ts = [x], [y], [0] #Initialize lists with initial conditions.
@@ -167,26 +174,27 @@ def trajectory_collisions(x,y,vx,vy,t,triangle,max_collisions=10000):
 
 
 def propogate(x,y,vx,vy,t,triangle):
-    """ Propogates a particle forward by time t
+    """ 
+    Propogates a particle forward by time t
 
-        Parameters:
-            x: initial x of particle
-            y: initial y of particle
-            vx: initial vx of particle
-            vy: initial vy of particle
-            t: trajectory time
-            triangle: Triangle object that defines the walls
+    Parameters:
+        x: initial x of particle
+        y: initial y of particle
+        vx: initial vx of particle
+        vy: initial vy of particle
+        t: trajectory time
+        triangle: Triangle object that defines the walls
 
-        Returns:
-            x: final x
-            y: final y
-            vx: final vx     
-            vy: final vy     
+    Returns:
+        x: final x
+        y: final y
+        vx: final vx     
+        vy: final vy     
 
 
-        This is a recursive function which steps forward collision-after
-        -collision using the next_collision function until the particle 
-        has been propogated forward by time t.
+    This is a recursive function which steps forward collision-after
+    -collision using the next_collision function until the particle 
+    has been propogated forward by time t.
 
     """
     
@@ -204,5 +212,24 @@ def propogate(x,y,vx,vy,t,triangle):
         #No collision occurs, so the final state at time t is reached.
         return x,y,vx,vy
 
+
+def propogate_list(x_list,y_list,vx_list,vy_list,t,triangle):
+    """
+    Propogate a list of particles
+
+    Parameters:
+        x_list: list of x values
+        Y_list: list of Y values
+        Vx_list: list of Vx values
+        VY_list: list of VY values
+
+    Returns:
+        tuple (x_list,y_list,vx_list,vy_list) with updated states.
+    """
+    for i in range(len(x_list)):
+        x_list[i],y_list[i],vx_list[i],vy_list[i] = \
+                propogate(x_list[i],y_list[i],vx_list[i],vy_list[i],t,triangle)
+    
+    return x_list,y_list,vx_list,vy_list
 
 #
