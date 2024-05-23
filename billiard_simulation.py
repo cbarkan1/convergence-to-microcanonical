@@ -7,7 +7,6 @@ Hopefully gonna speed things up.
 import numpy as np
 from numpy import exp
 import matplotlib.pyplot as plt
-from time import time
 from scipy.optimize import minimize
 from scipy.special import xlogy
 from scipy.special import erf as serf
@@ -22,7 +21,6 @@ triangle = Triangle(L1l,L1r,L2)
 rho_num = Rho_numerical(triangle,500,500)
 standardCG = standardCG_9(triangle)
 
-time0 = time()
 
 num_particles = 200
 
@@ -88,10 +86,9 @@ for i in range(1,num_ts):
 	print(lambdas4)
 	print('\n')
 
+#np.savez('sim2.npz',ts=ts,x_avgs=x_avgs,y_avgs=y_avgs,x2_avgs=x2_avgs,y2_avgs=y2_avgs,S_1s=S_1s,S_2s=S_2s,S_3s=S_3s,S_4s=S_4s,S_Ss=S_Ss,x_list0=x_list0,y_list0=y_list0,vx_list0=vx_list0,vy_list0=vy_list0)
 
 
-time1 = time()
-print('\n Time = ',time1-time0,'\n')
 
 plt.plot(ts, S_1s)
 plt.plot(ts, S_2s)
@@ -106,7 +103,6 @@ plt.xscale('log')
 plt.legend(['1','2','3','4','S','o1','o2','o3','o4'])
 plt.show()
 
-#np.savez('sim2.npz',ts=ts,x_avgs=x_avgs,y_avgs=y_avgs,x2_avgs=x2_avgs,y2_avgs=y2_avgs,S_1s=S_1s,S_2s=S_2s,S_3s=S_3s,S_4s=S_4s,S_Ss=S_Ss,x_list0=x_list0,y_list0=y_list0,vx_list0=vx_list0,vy_list0=vy_list0)
 
 
 #

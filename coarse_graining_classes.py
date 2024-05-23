@@ -1,10 +1,6 @@
 import numpy as np
-from numpy import exp
 from scipy.optimize import minimize
 from scipy.special import xlogy
-from scipy.special import erf as serf
-import math
-
 
 class Rho_numerical:
     def __init__(self,triangle,x_gridsize,y_gridsize):
@@ -23,7 +19,7 @@ class Rho_numerical:
         N = len(lambdas) - 1
         lambdas_ax = lambdas[1:, np.newaxis, np.newaxis]
         exponent = -1 - lambdas[0] - np.sum(self.array_of_mesh[0:N,:,:] * lambdas_ax,axis=0)
-        rho_array = exp(exponent)
+        rho_array = np.exp(exponent)
         rho_array[self.y_mesh > self.L2*(1-self.x_mesh/self.L1l)] = 0.
         rho_array[self.y_mesh > self.L2*(1-self.x_mesh/self.L1r)] = 0.
         return rho_array
