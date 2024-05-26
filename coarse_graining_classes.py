@@ -31,7 +31,7 @@ class Rho_numerical:
         self.dA = (x_range[1] - x_range[0]) * (y_range[1] - y_range[0])
         self.array_of_mesh = np.array([self.x_mesh,self.y_mesh,x2_mesh,y2_mesh])
 
-    def rho(self,lambdas):
+    def rho(self,lambdas,mask_val=0.):
         """
         Array of rho values, given lambdas of any length.
 
@@ -50,8 +50,8 @@ class Rho_numerical:
         rho_array = np.exp(exponent) # Eq. 12
 
         #Mask values outside of triangle
-        rho_array[self.y_mesh > self.L2*(1-self.x_mesh/self.L1l)] = 0.
-        rho_array[self.y_mesh > self.L2*(1-self.x_mesh/self.L1r)] = 0.
+        rho_array[self.y_mesh > self.L2*(1-self.x_mesh/self.L1l)] = mask_val
+        rho_array[self.y_mesh > self.L2*(1-self.x_mesh/self.L1r)] = mask_val
         return rho_array
 
     def I(self,lambdas):
@@ -94,7 +94,7 @@ class Rho_numerical:
         return 1 + np.sum(obs*lambdas), result.success , np.array(lambdas)
 
 
-class standardCG_9:
+class StandardCG_9:
     """
     Used for computing standard coarse-grained quantities according
     to the partition shown in Fig. 1C.

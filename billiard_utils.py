@@ -3,7 +3,7 @@ Utilities used for computing billiard dynamics.
 """
 
 import numpy as np
-from scipy.interpolate import interp1d
+
 
 class Triangle:
     """
@@ -24,6 +24,7 @@ class Triangle:
         self.L1l = L1l
         self.L1r = L1r
         self.L2 = L2
+        self.L_array = np.array([L1l,L1r,L2])
         self.left_side_vect = np.array([1,-L2/L1l]) / np.sqrt(1 + L2**2/L1l**2)
         self.right_side_vect = np.array([1,-L2/L1r]) / np.sqrt(1 + L2**2/L1r**2)
         self.Area = 0.5*(L1r-L1l)*L2

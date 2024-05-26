@@ -8,7 +8,7 @@ Running this script does the following:
 """
 import numpy as np
 import matplotlib.pyplot as plt
-from billiard_funcs import *
+from billiard_utils import *
 from coarse_graining_classes import *
 
 def simulation(triangle,num_particles, ts, filename=None):
@@ -40,7 +40,7 @@ def simulation(triangle,num_particles, ts, filename=None):
 
 	num_ts = len(ts)
 	rho_num = Rho_numerical(triangle,500,500)
-	standardCG = standardCG_9(triangle)
+	standardCG = StandardCG_9(triangle)
 
 	# Initial conditions drawn randomly as described in Fig. 1B
 	x_list = -.16 + 0.1*np.random.uniform(size=num_particles)
@@ -100,7 +100,7 @@ def simulation(triangle,num_particles, ts, filename=None):
 		np.savez(filename,ts=ts,x_avgs=x_avgs,y_avgs=y_avgs,x2_avgs=x2_avgs,
 				 y2_avgs=y2_avgs,S_1s=S_1s,S_2s=S_2s,S_3s=S_3s,S_4s=S_4s,
 				 S_Ss=S_Ss,x_list0=x_list0,y_list0=y_list0,vx_list0=vx_list0,
-				 vy_list0=vy_list0)
+				 vy_list0=vy_list0,triangle_data=triangle.L_array)
 
 	return x_avgs,y_avgs,x2_avgs,y2_avgs,S_1s,S_2s,S_3s,S_4s,S_Ss
 
@@ -145,11 +145,11 @@ def main():
 	TIME_STEPS = 4
 	FIRST_NONZERO_TIME = 0.01
 	FINAL_TIME = 10
-	FILENAME = 'sim_results.npz'
+	FILENAME = 'simulation_data.npz'
 
 	# log-scale ts
 	ts = np.concatenate(([0], np.exp(np.linspace(np.log(FIRST_NONZERO_TIME),
-											np.log(FINAL_TIME),TIME_STEPS))))
+									 np.log(FINAL_TIME),TIME_STEPS))))
 	
 	x_avgs,y_avgs,x2_avgs,y2_avgs,S_1s,S_2s,S_3s,S_4s,S_Ss = \
 						simulation(triangle,NUM_PARTICLES,ts,filename=FILENAME)
