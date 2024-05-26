@@ -5,6 +5,8 @@ Classes used for computing coarse-grained quantities.
 import numpy as np
 from scipy.optimize import minimize
 from scipy.special import xlogy
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 
 class Rho_numerical:
     """
@@ -119,7 +121,7 @@ class StandardCG_9:
 
     def rho_and_S(self,x_list,y_list):
         """
-        compute the rho value in each cell (according to the standard
+        Compute the rho value in each cell (according to the standard
         coarse-graining), and the corresponding entropy.
 
         Parameters:
@@ -136,5 +138,54 @@ class StandardCG_9:
         rho_S = self.Total_Area*H/(self.Areas*num_particles)
         S_S = -1*np.sum(self.Areas*xlogy(rho_S,rho_S))
         return rho_S,S_S
+
+    def plot_rho(self,ax,rho_S,cmap=plt.cm.viridis):
+        """
+        Plots the standard coarse-grained rho defined in Fig. 1C.
+
+        Parameters:
+            ax (pyplot axis): axis on which to plot
+            rho_S (np.array): Array of coarse-grained rho values
+                              computed with self.rho_and_S
+            cmap: pytplot colormap
+        """
+
+        L1l,L1r,L2 = self.L1l,self.L1r,self.L2
+
+        # Transform and re-normalize rho_s for plotting
+        rho_S = rho_S.T / 3
+        
+        # Diagram of cell numbering
+        # 20  21  --  --
+        # 10  11  12  --
+        # 00  01  02  03
+        cell00 = patches.Polygon([(L1l,0),(0,0),(0,L2/3),(2*L1l/3,L2/3)],
+            closed=True,color=cmap(rho_S[0,0]))
+        cell10 = patches.Polygon([(2*L1l/3,L2/3),(0,L2/3),(0,2*L2/3),
+            (L1l/3,2*L2/3)],closed=True,color=cmap(rho_S[1,0]))  
+        cell20 = patches.Polygon([(L1l/3,2*L2/3),(0,2*L2/3),(0,L2)],
+            closed=True,color=cmap(rho_S[2,0]))  
+        cell01 = patches.Polygon([(0,0),(0,L2/3),(L1r/3,L2/3),(L1r/3,0)],
+            closed=True,color=cmap(rho_S[0,1]))
+        cell02 = patches.Polygon([(L1r/3,0),(2*L1r/3,0),(2*L1r/3,L2/3),
+            (L1r/3,L2/3)],closed=True,color=cmap(rho_S[0,2]))
+        cell03 = patches.Polygon([(2*L1r/3,0),(L1r,0),(2*L1r/3,L2/3)],
+            closed=True,color=cmap(rho_S[0,3]))
+        cell11 = patches.Polygon([(0,L2/3),(L1r/3,L2/3),(L1r/3,2*L2/3),
+            (0,2*L2/3)],closed=True,color=cmap(rho_S[1,1]))
+        cell12 = patches.Polygon([(L1r/3,L2/3),(2*L1r/3,L2/3),(L1r/3,2*L2/3)],
+            closed=True,color=cmap(rho_S[1,2]))
+        cell21 = patches.Polygon([(0,2*L2/3),(L1r/3,2*L2/3),(0,L2)],
+            closed=True,color=cmap(rho_S[2,1]))
+
+        ax.add_patch(cell00)
+        ax.add_patch(cell10)
+        ax.add_patch(cell20)
+        ax.add_patch(cell01)
+        ax.add_patch(cell02)
+        ax.add_patch(cell03)
+        ax.add_patch(cell11)
+        ax.add_patch(cell12)
+        ax.add_patch(cell21)
 
 #
