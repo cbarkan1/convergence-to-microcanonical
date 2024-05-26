@@ -53,7 +53,7 @@ ax.set_yticks([-.1, 0, .1, .2, .3, .4, .5])
 ax.set_yticklabels(['', 0, '', 0.2, '', 0.4, ''])
 ax.spines[['right', 'top']].set_visible(False)
 
-plt.legend([r'$\langle q_1\rangle$', r'$\langle q_2\rangle$', 
+plt.legend([r'$\langle q_1\rangle$', r'$\langle q_2\rangle$',
            r'$\langle q_1^{\;2}\rangle$', r'$\langle q_2^{\;2}\rangle$'],
            prop={'size': 13})
 
