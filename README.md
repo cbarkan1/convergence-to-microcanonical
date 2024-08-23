@@ -1,7 +1,7 @@
 
 ## Code for *On the convergence of phase space distributions to microcanonical equilibrium: dynamical isometry and generalized coarse-graining*
 
-[Link to ArXiv paper:](https://arxiv.org/abs/2404.05123)
+[Link to ArXiv paper](https://arxiv.org/abs/2404.05123)
 
 Code to reproduce figures:
 * Fig1ABC.py: produces Fig. 1 panels A, B, and C
