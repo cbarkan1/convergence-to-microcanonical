@@ -4,7 +4,7 @@ Simulation of ensemble dynamics and computing coarse-grained quantities.
 Running this script does the following:
 1) Simulates an ensemble with initial condition as in Fig. 1B
 2) Shows summary plot of results
-3) Saves an npz file that is read by Fig.1D.py and Fig2.py.
+3) Saves an npz file that is read by Fig1D.py and Fig2.py.
 """
 import numpy as np
 import matplotlib.pyplot as plt

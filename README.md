@@ -5,7 +5,7 @@
 
 Code to reproduce figures:
 * Fig1ABC.py: produces Fig. 1 panels A, B, and C
-* Fig1D.py: produces Fig. 1 panels D
+* Fig1D.py: produces Fig. 1 panel D
 * Fig2.py: produces Fig. 2
 * FigS1.py: produces Fig. S1 in Supplementary Material
 * FigS2.py: produces Fig. S2 in Supplementary Material
