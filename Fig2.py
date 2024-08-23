@@ -8,13 +8,13 @@ import matplotlib.pyplot as plt
 
 # simulation_data.npz is created with billiard_simulation.py
 file = np.load('simulation_data.npz')
-ts = file['ts']
+ts = file['ts']  # time points
 x_avg = file['x_avgs']
 y_avg = file['y_avgs']
 x2_avg = file['x2_avgs']
 y2_avg = file['y2_avgs']
-S_S = file['S_Ss']
-S_G = file['S_4s']
+S_S = file['S_Ss']  # Entropy of standard coarse-graining
+S_G = file['S_4s']  # Entropy of generalized coarse-graining
 
 
 # Panel A
@@ -36,6 +36,7 @@ b.set_yticklabels([-4, '', -2, '', 0])
 b.set_ylim(-4, 0.1)
 
 plt.subplots_adjust(hspace=0.3)
+# plt.savefig('fig2A.svg', transparent=True)
 
 
 # Panel B
@@ -56,6 +57,7 @@ ax.spines[['right', 'top']].set_visible(False)
 plt.legend([r'$\langle q_1\rangle$', r'$\langle q_2\rangle$',
            r'$\langle q_1^{\;2}\rangle$', r'$\langle q_2^{\;2}\rangle$'],
            prop={'size': 13})
+# plt.savefig('fig2B.svg', transparent=True)
 
 
 # Panel C
@@ -77,4 +79,6 @@ plt.gca().spines[['right', 'top']].set_visible(False)
 plt.legend(['N=1', 'N=2', 'N=3', 'N=4'])
 plt.yticks([-4, -3, -2, -1, 0])
 plt.gca().set_yticklabels([-4, '', '', '', 0])
+# plt.savefig('fig2C.svg', transparent=True)
+
 plt.show()
