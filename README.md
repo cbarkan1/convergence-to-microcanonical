@@ -1,5 +1,5 @@
 
-## "On the convergence of phase space distributions to microcanonical equilibrium: dynamical isometry and generalized coarse-graining"
+## Code for *On the convergence of phase space distributions to microcanonical equilibrium: dynamical isometry and generalized coarse-graining*
 
 [Link to ArXiv paper:](https://arxiv.org/abs/2404.05123)
 
