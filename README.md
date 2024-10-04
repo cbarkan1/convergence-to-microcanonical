@@ -4,6 +4,7 @@
 Accepted to Journal of Physics A: Mathematical and Theoretical
 
 [Link to published article](https://doi.org/10.1088/1751-8121/ad7c9e)
+
 [Link to ArXiv version](https://arxiv.org/abs/2404.05123)
 
 
