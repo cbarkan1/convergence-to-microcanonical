@@ -1,5 +1,7 @@
 """
-Utilities used for computing billiard dynamics.
+Utilities for computing the dynamics of an ensemble of particles inside a triangular box.
+
+propogate_list() computes the ensemble dynamics.
 """
 
 import numpy as np

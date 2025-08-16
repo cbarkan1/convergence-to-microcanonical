@@ -1,5 +1,6 @@
 """
-Classes used for computing coarse-grained quantities.
+Classes used for computing entropies and distribution functions for the various 
+coarse-grainings discussed in the paper.
 """
 
 import numpy as np
@@ -7,6 +8,7 @@ from scipy.optimize import minimize
 from scipy.special import xlogy
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+from billiard_utils import Triangle
 
 
 class Rho_numerical:
@@ -103,7 +105,7 @@ class StandardCG_9:
     Used for computing standard coarse-grained quantities according
     to the partition shown in Fig. 1C.
     """
-    def __init__(self, triangle):
+    def __init__(self, triangle: Triangle):
         """
         Initializes the partition cells into the Areas array.
 

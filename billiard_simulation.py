@@ -3,6 +3,7 @@ Simulation of ensemble dynamics and computing coarse-grained quantities.
 
 Running this script does the following:
 1) Simulates an ensemble with initial condition as in Fig. 1B
+   - Core simulation and coarse-graining computations are in billiard_utils.py and coarse_graining_classes.py
 2) Shows summary plot of results
 3) Saves an npz file that is read by Fig1D.py and Fig2.py.
 """
@@ -64,7 +65,7 @@ def simulation(triangle, num_particles, ts, filename=None):
     S_2s = np.zeros(num_ts)  # generalized entropy with N=2
     S_3s = np.zeros(num_ts)  # generalized entropy with N=3
     S_4s = np.zeros(num_ts)  # generalized entropy with N=4
-    S_Ss = np.zeros(num_ts)  # Standard coare-grained entropies
+    S_Ss = np.zeros(num_ts)  # Standard coarse-grained entropies
     outcomes1 = np.zeros(num_ts)  # Outcomes of S_1s optimizations
     outcomes2 = np.zeros(num_ts)  # Outcomes of S_2s optimizations
     outcomes3 = np.zeros(num_ts)  # Outcomes of S_3s optimizations
