@@ -9,7 +9,7 @@ Accepted to Journal of Physics A: Mathematical and Theoretical
 
 ## What this does
 
-Simulates an ensemble of billiard particle inside a triangular box and studies how they approach equilibrium. Compares the coarse-graining method introduced in the paper to the standard method.
+Simulates an ensemble of billiard particles inside a triangular box and studies the dynamics of the coarse-grained distribution functions and entropies. Compares the coarse-graining method introduced in the paper to the standard method.
 
 ## Usage
 
